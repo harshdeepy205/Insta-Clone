@@ -1,11 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../App'
 import { useParams } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
+
+
 
 const Profile = () => {
     const [userProfile, setProfile] = useState(null)
     const { state, dispatch } = useContext(UserContext)
     const { userid } = useParams()
+    const [displayFollow, setDisplayFollow] = useState(state ? !state.following.includes(userid) : true)
+
     console.log(userid)
     useEffect(() => {
         fetch(`http://localhost:5000/user/${userid}`, {
@@ -19,6 +24,64 @@ const Profile = () => {
             })
     }, [])
 
+    const followUser = () => {
+        fetch("http://localhost:5000/follow", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                followId: userid
+            })
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                dispatch({ type: "UPDATE", payload: { following: data.following, followers: data.followers } })
+                localStorage.setItem("user", JSON.stringify(data))
+                setProfile((prevState) => {
+                    return {
+                        ...prevState,
+                        user: {
+                            ...prevState.user,
+                            followers: [...prevState.user.followers, data._id]
+                        }
+                    }
+                })
+                setDisplayFollow(false)
+            })
+    }
+
+    const unfollowUser = () => {
+        fetch("http://localhost:5000/unfollow", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                unfollowId: userid
+            })
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                dispatch({ type: "UPDATE", payload: { following: data.following, followers: data.followers } })
+                localStorage.setItem("user", JSON.stringify(data))
+                setProfile((prevState) => {
+                    const newFollower = prevState.user.followers.filter(item => item != data._id)
+                    return {
+                        ...prevState,
+                        user: {
+                            ...prevState.user,
+                            followers: newFollower
+                        }
+                    }
+                })
+                setDisplayFollow(true)
+
+            })
+    }
+
     return (
         <>
             {userProfile ?
@@ -31,7 +94,7 @@ const Profile = () => {
                     }}>
                         <div>
                             <img style={{ width: "160px", height: "160px", borderRadius: "80px" }}
-                                src="https://images.unsplash.com/photo-1569466896818-335b1bedfcce?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcnNvbnxlbnwwfDJ8MHw%3D&auto=format&fit=crop&w=500&q=60" />
+                                src={userProfile.user.photo} />
                         </div >
 
                         <div>
@@ -39,9 +102,17 @@ const Profile = () => {
                             <h4>{userProfile.user.email}</h4>
                             <div style={{ display: "flex", justifyContent: "space-between", width: "108%" }}>
                                 <h6>{userProfile.posts.length} posts</h6>
-                                <h6>30 followers</h6>
-                                <h6>30 following</h6>
+                                <h6>{userProfile.user.followers.length} followers</h6>
+                                <h6>{userProfile.user.following.length} following</h6>
                             </div>
+                            {displayFollow ?
+                                <Button variant="info" className="followbtn" onClick={() => { followUser() }}>Follow</Button>
+                                :
+                                <Button variant="info" className="followbtn" onClick={() => { unfollowUser() }}>UnFollow</Button>
+                            }
+
+
+                            {/* <a className="waves-effect waves-light btn" onClick={() => { followUser() }}>follow</a> */}
                         </div>
                     </div>
 

@@ -136,7 +136,13 @@ body{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap :7rem;
-    padding: 0 2rem;
+	padding: 0 2rem;
+	/* overflow: hidden; */
+}
+.body{
+	height: 100vh;
+	/* overflow: hidden; */
+
 }
 
 .img{
@@ -148,7 +154,7 @@ body{
 .login-content{
 	display: flex;
 	justify-content: flex-start;
-	align-items: center;
+	/* align-items: center; */
 	text-align: center;
 }
 
@@ -364,4 +370,10 @@ a:hover{
     text-decoration: none;
     color: black;
     font-size: 22px;
+}
+button.followbtn.btn.btn-info {
+    height: 20%;
+    width: 55%;
+    /* background-color: blue; */
+    background: dodgerblue;
 }
