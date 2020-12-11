@@ -75,10 +75,9 @@ const Profile = () => {
                     <div>
                         <img style={{ width: "160px", height: "160px", borderRadius: "80px" }}
                             src={state ? state.photo : "loading"} />
-                        {/* <Form.File id="formcheck-api-regular">
-                            <Button variant="info" className="followbtn" onClick={() => {
-                                updatePhoto()
-                            }} > Update Pic</Button></Form.File> */}
+
+                        {/* <Button variant="info" className="followbtn" type="file"
+                            onChange={(e) => updatePhoto(e.target.files[0])} > Update Pic</Button> */}
                         <Form.File id="formcheck-api-regular">
                             <Form.File.Input onChange={(e) => updatePhoto(e.target.files[0])}></Form.File.Input>
                         </Form.File>

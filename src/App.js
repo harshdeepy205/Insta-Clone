@@ -1,7 +1,6 @@
 import React, { useEffect, createContext, useReducer, useContext } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Navbar from './components/navbar'
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom'
 import SignIn from './pages/signIn'
 import SignUp from './pages/signUp'
@@ -9,7 +8,6 @@ import Home from './pages/home'
 import Profile from './pages/profile'
 import CreatePost from './components/createPost'
 import UserProfile from './pages/UserProfile'
-// import { Switch } from '@material-ui/core';
 import { reducer, initialiState } from './reducer/userReducer'
 import NavHome from './components/navHome';
 

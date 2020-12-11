@@ -60,8 +60,8 @@
   }
   
   .brand-logo {
-	
-	height: 25px;
+	font-size: 28px;
+	/* height: 25px; */
 	margin-top: 15px;
   }
 /* navrbarcss   */
@@ -71,6 +71,9 @@
 	height: max-content;
 	margin: 0px auto;
 	scroll-behavior: smooth;
+}
+.card .card-action{
+	padding: 0px 0px;
 }
 .card-action{
 	display: flex;
@@ -341,9 +344,10 @@ a:hover{
 }
 
 
-.card{
+.home{
 	width: fit-content;
-
+	max-width: 550px;
+    margin: 0 auto;
 }
 
 
@@ -369,7 +373,8 @@ a:hover{
 	float: left;
     text-decoration: none;
     color: black;
-    font-size: 22px;
+	font-size: 22px;
+	font-weight: bold;
 }
 button.followbtn.btn.btn-info {
     height: 20%;

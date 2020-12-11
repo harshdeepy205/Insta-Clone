@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 // import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'materialize-css/dist/css/materialize.min.css'
+import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css';
 import { UserContext } from '../App'
 import NavHome from '../components/navHome'
@@ -148,7 +148,7 @@ function Home() {
                     data.map(item => {
                         return (
                             <div className="card post-card">
-                                <h4 className="card-title"><Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile/"} className="profile_name">{item.postedBy.name}</Link> {item.postedBy._id == state._id
+                                <h4 className="card-title mx-2"><Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile/"} className="profile_name">{item.postedBy.name}</Link> {item.postedBy._id == state._id
                                     && <i className="material-icons" style={{ float: "right", cursor: "pointer" }}
                                         onClick={() => {
                                             deletePost(item._id)
@@ -158,7 +158,7 @@ function Home() {
                                 <div className="card-image">
                                     <img className="card-imagee" src={item.photo} />
                                 </div>
-                                <div className="card-action mx-2 my-2">
+                                <div className=" mx-2 my-2">
                                     {/* <a href="#" >This is a link</a> */}
                                     {/* <i class="material-icons" style={{ color: "red" }}>favorite</i> */}
                                     {item.likes.includes(state._id)
@@ -170,14 +170,14 @@ function Home() {
                                     }
                                     {/* <a href="#" className="mx-4">This is a link</a> */}
                                 </div>
-                                <div className="my-2 mx-2 card-content">
+                                <div className="my-2 mx-2 ">
                                     <h6>{item.likes.length} likes  </h6>
                                     <h6>{item.title}</h6>
                                     <p>{item.body}</p>
                                     {
                                         item.comments.map(record => {
                                             return (
-                                                <h6 key={record._id}><span>{record.postedBy.name}</span> {record.text}</h6>
+                                                <h6 key={record._id} ><span style={{ fontWeight: "bold" }}>{record.postedBy.name}</span> {record.text}</h6>
                                             )
                                         })
                                     }
