@@ -6,10 +6,19 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const { JWT_SECRET } = require('../keys')
 const requireLogin = require('../middleware/requireLogin')
+const nodemailer = require('nodemailer')
+const sendgridTransport = require('nodemailer-sendgrid-transport')
 
 // router.get('/protected', requireLogin, (req, res) => {
 //     res.send("Hello user")
 // })
+//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
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth: {
+        api_key: "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"
+    }
+}))
 
 router.post('/signin', (req, res) => {
     const { email, password } = req.body
@@ -65,6 +74,12 @@ router.post('/signup', (req, res) => {
                     })
                     user.save()
                         .then(user => {
+                            transporter.sendMail({
+                                to: user.email,
+                                from: "no-reply@insta.com",
+                                subject: "Account Created Successfully",
+                                html: "<h1>Welcome To fake Insta-Clone</h1>"
+                            })
                             res.json({ message: "Succesfully Inserted" })
                         })
                         .catch(err => {

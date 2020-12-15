@@ -148,7 +148,7 @@ function Home() {
                     data.map(item => {
                         return (
                             <div className="card post-card">
-                                <h4 className="card-title mx-2"><Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile/"} className="profile_name">{item.postedBy.name}</Link> {item.postedBy._id == state._id
+                                <h4 className="card-title mx-2" style={{ borderBottom: "1px solid grey" }}><Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile/"} className="profile_name">{item.postedBy.name}</Link> {item.postedBy._id == state._id
                                     && <i className="material-icons" style={{ float: "right", cursor: "pointer" }}
                                         onClick={() => {
                                             deletePost(item._id)
