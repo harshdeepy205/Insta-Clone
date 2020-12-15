@@ -12,11 +12,11 @@ const sendgridTransport = require('nodemailer-sendgrid-transport')
 // router.get('/protected', requireLogin, (req, res) => {
 //     res.send("Hello user")
 // })
-//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
+
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
-        api_key: "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"
+        api_key: ""
     }
 }))
 
